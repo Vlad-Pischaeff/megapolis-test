@@ -1,0 +1,185 @@
+@import url('https://fonts.googleapis.com/css?family=Exo+2:200,300,400&display=swap');
+
+#root {
+  background-color: #eee;
+}
+body, * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: 'Exo 2', sans-serif;
+  background:white;
+}
+.wrap {
+  max-width: 50rem;
+  height: calc(100vh - 3rem);
+/*   visibility: hidden; */
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 auto;
+  background: white;
+  padding: 0 10px;
+}
+header {
+  display: flex;
+  justify-content: space-between;
+  flex:  1 1 5vh;
+  margin: 10px 0;
+}
+/* header, h2, main, footer, li, div, button, i, input, label, span {
+  background: white;
+} */
+button {
+  padding: 0 10px;
+  border: 1px solid #64BD55;
+  border-radius: 3px;
+  height: 2.5rem;
+}
+button:hover,
+i:hover {
+  cursor: pointer;
+  color: white;
+}
+button:hover {
+  background: #64BD55;
+}
+main {
+  flex:  3 1 80vh;
+}
+footer {
+  background: #222;
+  color: white;
+  text-align: center;
+  line-height: 3rem;
+  max-width: 50rem;
+  margin: 0 auto;
+  font-weight: 200;
+}
+.task-show-wrap {
+/*   display: none; */
+}
+li {
+  height: 3rem;
+  display: flex;
+  justify-content: space-between;
+}
+li div {
+  border: 1px solid #eee;
+  margin: -1px 0 0 -1px;
+}
+.num {
+  flex: 1 1 5rem;
+  padding: 0 10px;
+  line-height: 3rem;
+}
+.text {
+  flex: 2 1 30rem;
+  padding: 0 10px;
+  line-height: 3rem;
+}
+.edit {
+  flex: 1 1 7rem;
+  text-align: center;
+  line-height: 3rem;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 0.3rem;
+}
+.edit i, i {
+  border-radius: 3px;
+  padding: 4px;
+}
+.red-btn {
+  color: #FB4D3C;
+  border: 1px solid #FB4D3C;
+}
+.red-btn:hover {
+  background: #FB4D3C;
+}
+.green-btn {
+  color: #64BD55;
+  border: 1px solid #64BD55;
+}
+.green-btn:hover {
+  background: #64BD55;
+}
+/* modal definition */
+.modal {
+  /* display: none; */
+}
+.bg {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(200, 200, 200, 0.7);
+}
+.form {
+  position: absolute;
+  top: 15vh;
+  left: 10rem;
+  right: 10rem;
+  bottom: 60vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  max-width: 30rem;
+  padding: 10px;
+  box-shadow: 0px 0px 10px 0px rgba(0,0,0,0.75);
+  min-height: 15rem;
+  min-width: 20rem;
+  margin: auto;
+}
+.close {
+  align-self: flex-end;
+}
+.create {
+  align-self: flex-start;
+  border: 1px solid #104A9C;
+}
+.create:hover {
+  background: #104A9C;
+}
+label {
+  color: grey;
+  font-weight: 200;
+}
+input {
+  line-height: 2rem;
+  margin: 5px 0 25px 0;
+  padding: 0 5px;
+  border: 1px solid #eee !important;
+}
+/* end of modal definition */
+/* task editor definition */
+.btn-del {
+  display: none;
+}
+.task-edit-wrap {
+  display: none;
+}
+.task-edit {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+.btn-del-inside {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.btn-del-inside:hover span,
+.btn-del-inside:hover i{
+  background: #64BD55;
+}
+/* end of task editor definition */
+.hide {
+  display: none;
+}
+.hidden {
+  visibility: hidden;
+}

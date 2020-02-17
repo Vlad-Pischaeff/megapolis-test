@@ -13,7 +13,6 @@ body, * {
 .wrap {
   max-width: 50rem;
   height: calc(100vh - 3rem);
-/*   visibility: hidden; */
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -55,9 +54,6 @@ footer {
   max-width: 50rem;
   margin: 0 auto;
   font-weight: 200;
-}
-.task-show-wrap {
-/*   display: none; */
 }
 li {
   height: 3rem;
@@ -155,11 +151,17 @@ input {
 }
 /* end of modal definition */
 /* task editor definition */
+.btn-add {
+  /* display: none; */
+}
 .btn-del {
   display: none;
 }
 .task-edit-wrap {
   display: none;
+}
+.task-show-wrap {
+  /* visibility: hidden; */
 }
 .task-edit {
   display: flex;

@@ -8,6 +8,7 @@ body, * {
   padding: 0;
   box-sizing: border-box;
   font-family: 'Exo 2', sans-serif;
+  font-weight: 200;
   background:white;
 }
 .wrap {
@@ -45,6 +46,7 @@ button:hover {
 }
 main {
   flex:  3 1 80vh;
+  line-height: 3rem;
 }
 footer {
   background: #222;
@@ -56,7 +58,6 @@ footer {
   font-weight: 200;
 }
 li {
-  height: 3rem;
   display: flex;
   justify-content: space-between;
 }
@@ -67,25 +68,23 @@ li div {
 .num {
   flex: 1 1 5rem;
   padding: 0 10px;
-  line-height: 3rem;
 }
 .text {
   flex: 2 1 30rem;
   padding: 0 10px;
-  line-height: 3rem;
 }
 .edit {
   flex: 1 1 7rem;
   text-align: center;
   line-height: 3rem;
   display: flex;
-  justify-content: space-around;
+  justify-content: center;
   align-items: center;
-  padding: 0 0.3rem;
 }
-.edit i, i {
+i {
   border-radius: 3px;
   padding: 4px;
+  margin: 0 4px;
 }
 .red-btn {
   color: #FB4D3C;
@@ -160,8 +159,8 @@ input {
 .task-edit-wrap {
   display: none;
 }
-.task-show-wrap {
-  /* visibility: hidden; */
+.of {
+  overflow: auto;
 }
 .task-edit {
   display: flex;

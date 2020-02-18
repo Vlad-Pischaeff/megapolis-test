@@ -101,7 +101,7 @@ export default function App() {
           </button>
         </header>
       
-        <main>
+        <main className='of'>
           <ul className={taskShowWrap}>
             <ListOfTasks tasks={tasks} URL={URL} task={task} input={refInput}/>
           </ul>

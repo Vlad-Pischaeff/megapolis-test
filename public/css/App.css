@@ -174,8 +174,8 @@ input {
   align-items: center;
   justify-content: space-between;
 }
-.btn-del-inside:hover span,
-.btn-del-inside:hover i{
+.btn-del-wrap:hover span,
+.btn-del-wrap:hover i{
   background: #64BD55;
 }
 /* end of task editor definition */

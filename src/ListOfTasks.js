@@ -1,12 +1,17 @@
 import React, { useContext } from 'react'
 import {Context} from './context'
 
-export default function ListOfTasks({tasks, URL}) {
-  const {dispatchTasks} = useContext(Context)
+export default function ListOfTasks({tasks, URL, task, input}) {
+  const {dispatchTasks, dispatchPages} = useContext(Context)
   let listitems = <li></li>
 
-  const h_BtnEdit_onClick = (id) => {
-    console.log('edit', id)
+  const h_BtnEdit_onClick = (id, title) => {
+    task.id = id
+    task.title = title
+    dispatchPages({
+      type: 'SHOW_EDIT'
+    })
+    input.current.value = title
   }
 
   const h_BtnDelete_onClick = (id) => {
@@ -39,7 +44,7 @@ export default function ListOfTasks({tasks, URL}) {
             <div className="num">{n.id}</div>
             <div className="text">{n.title}</div>
             <div className="edit">
-              <i className="small material-icons green-btn" onClick={() => h_BtnEdit_onClick(n.id)}>edit</i>
+              <i className="small material-icons green-btn" onClick={() => h_BtnEdit_onClick(n.id, n.title)}>edit</i>
               <i className="small material-icons red-btn" onClick={() => h_BtnDelete_onClick(n.id)}>delete</i>
             </div>
           </li>

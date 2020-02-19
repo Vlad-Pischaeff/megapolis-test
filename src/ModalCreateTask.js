@@ -26,11 +26,12 @@ export default function ModalCreateTask({pages, URL}) {
             type: 'SET_TASKS',
             payload: {id: res.id, title: description}
           })
+          h_BtnClose_onClick()
+          description = ''
       })
   }
 
   const h_BtnClose_onClick = () => {
-    console.log('close')
     dispatchPages({ type: 'HIDE_CREATE' })
   }
 

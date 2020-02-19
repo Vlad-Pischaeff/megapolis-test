@@ -79,21 +79,16 @@ export default function App() {
     })
   }
 
-  const taskEditWrap = pages.edit === 'hide' ? 'hide' : ''
-  const btnDel = pages.edit === 'hide' ? 'hide' : ''
-  const taskShowWrap = pages.edit === 'hide' ? '' : 'hide'
-  const btnAdd = pages.edit === 'hide' ? '' : 'hide'
+  const editHide = pages.edit === 'hide' ? '' : 'hide'
   const Title = pages.edit === 'hide' ? 'Список задач' : `Задача № ${task.id}`
-
-  // console.log( 'tasks', tasks, pages, task, refInput.current.value)
 
   return (
     <Context.Provider value={{dispatchTasks, dispatchPages}}>
       <div className="wrap">
         <header>
           <h3>{Title}</h3>
-          <button className={btnAdd} onClick = {h_BtnAdd_onClick}>Добавить</button>
-          <button className={`btn-del-wrap ${btnDel}`}>
+          <button className={editHide} onClick = {h_BtnAdd_onClick}>Добавить</button>
+          <button className={`btn-del-wrap ${pages.edit}`}>
             <div className="btn-del-inside" onClick={h_DelIcon_onClick}>
               <span>Удалить</span>
               <i className="small material-icons">delete</i>
@@ -102,10 +97,10 @@ export default function App() {
         </header>
       
         <main className='of'>
-          <ul className={taskShowWrap}>
+          <ul className={editHide}>
             <ListOfTasks tasks={tasks} URL={URL} task={task} input={refInput}/>
           </ul>
-          <div className={taskEditWrap}>
+          <div className={pages.edit}>
             <div className="task-edit">
               <label>Краткое описание</label>
               <input type="text" ref={refInput} onChange={h_Input2_onChange}></input>

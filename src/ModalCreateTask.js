@@ -1,16 +1,17 @@
-import React, {useContext} from 'react'
+import React, {useContext, useRef} from 'react'
 import {Context} from './context'
-let description = ''
+// let description = ''
 
-export default function ModalCreateTask({pages, URL}) {
+export default function ModalCreateTask({pages, URL, task}) {
   const {dispatchTasks, dispatchPages} = useContext(Context)
-  
+  const Input = useRef('')
+
   const h_Input_OnChange = (event) => {
-    description = event.target.value
+    task.title = event.target.value
   }
 
   const h_BtnCreate_onClick = () => {
-    let obj = {title: description}
+    let obj = {title: task.title}
     fetch(`${URL}/list`, {
       method: 'POST', 
       headers: {
@@ -24,10 +25,11 @@ export default function ModalCreateTask({pages, URL}) {
         if (res.success)
           dispatchTasks({
             type: 'SET_TASKS',
-            payload: {id: res.id, title: description}
+            payload: {id: res.id, title: task.title}
           })
           h_BtnClose_onClick()
-          description = ''
+          task.title = ''
+          Input.current.value = ''
       })
   }
 
@@ -41,7 +43,7 @@ export default function ModalCreateTask({pages, URL}) {
       <div className="form">
         <i className="small material-icons red-btn close" onClick={h_BtnClose_onClick}>close</i>
         <label>Краткое описание</label>
-        <input type="text" onChange={h_Input_OnChange}></input>
+        <input type="text" onChange={h_Input_OnChange} ref={Input}></input>
         <button className="create" onClick={h_BtnCreate_onClick}>Создать</button>
       </div>
     </div>

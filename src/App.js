@@ -13,21 +13,43 @@ export default function App() {
   const refInput = useRef('')
 
   useEffect(() => {
-    fetch(`${URL}/list`)
-      .then(res => res.json())
-      .then(res => 
-        dispatchTasks({
-          type: 'GET_TASKS',
-          payload: res.data
-        })
-      )
+    getList()
   }, [])
 
-  const h_BtnAdd_onClick = () => {
+  const getList = () => {
+    fetch(`${URL}/list`)
+      .then(res => res.json())
+      .then(res => setListOfTasks(res))
+  }
+
+  const showCreateWindow = () => {
     dispatchPages({ type: 'SHOW_CREATE' })
   }
 
-  const h_BtnCreate_onClick = () => {
+  const setListOfTasks = (res) => {
+    dispatchTasks({
+      type: 'GET_TASKS',
+      payload: res.data
+    })
+  }
+
+  const hideEditWindow = () => {
+    dispatchPages({ type: 'HIDE_EDIT' })
+  }
+
+  const delItem = (id) => {
+    fetch(`${URL}/list/${id}`, {method: 'DELETE'})
+    .then(res => res.json())
+    .then(res => {
+      if (res.success) {
+        getList()
+      } else {
+        return res.error
+      }
+    })
+  }
+
+  const updateItem = () => {
     let obj = {title: task.title}
     fetch(`${URL}/list/${task.id}`, {
       method: 'POST', 
@@ -38,45 +60,31 @@ export default function App() {
     })
     .then(res => res.json())
     .then(res => {
-        console.log('edited task title ...', res)
-        if (res.success)
-          fetch(`${URL}/list`)
-          .then(res => res.json())
-          .then(res => 
-            dispatchTasks({
-              type: 'GET_TASKS',
-              payload: res.data
-            })
-          )
-          dispatchPages({ type: 'HIDE_EDIT' })
-      })
+      if (res.success) {
+        getList()
+      } else {
+        return res.error
+      }
+    })
+  }
+
+  const h_BtnAdd_onClick = () => {
+    task.title = ''
+    showCreateWindow()
+  }
+
+  const h_BtnBack_onClick = () => {
+    updateItem()
+    hideEditWindow()
   }
 
   const h_Input2_onChange = (event) => {
     task.title = event.target.value
   }
 
-  const h_DelIcon_onClick = () => {
-    fetch(`${URL}/list/${task.id}`, {method: 'DELETE'})
-    .then(res => res.json())
-    .then(res => {
-      if (res.success) {
-        console.log('Deleted...')
-        fetch(`${URL}/list`)
-          .then(res => res.json())
-          .then(res => {
-              console.log('Get list of tasks...')
-              dispatchTasks({
-                type: 'GET_TASKS',
-                payload: res.data
-              })
-              dispatchPages({ type: 'HIDE_EDIT' })
-            }
-          )
-      } else {
-        return res.error
-      }
-    })
+  const h_DelIcon_onClick = (id) => {
+    delItem(id)  
+    hideEditWindow()
   }
 
   const editHide = pages.edit === 'hide' ? '' : 'hide'
@@ -87,9 +95,9 @@ export default function App() {
       <div className="wrap">
         <header>
           <h3>{Title}</h3>
-          <button className={editHide} onClick = {h_BtnAdd_onClick}>Добавить</button>
+          <button className={editHide} onClick={h_BtnAdd_onClick}>Добавить</button>
           <button className={`btn-del-wrap ${pages.edit}`}>
-            <div className="btn-del-inside" onClick={h_DelIcon_onClick}>
+            <div className="btn-del-inside" onClick={() => h_DelIcon_onClick(task.id)}>
               <span>Удалить</span>
               <i className="small material-icons">delete</i>
             </div>
@@ -98,13 +106,13 @@ export default function App() {
       
         <main className='of'>
           <ul className={editHide}>
-            <ListOfTasks tasks={tasks} URL={URL} task={task} input={refInput}/>
+            <ListOfTasks tasks={tasks} task={task} input={refInput} delItem={delItem}/>
           </ul>
           <div className={pages.edit}>
             <div className="task-edit">
               <label>Краткое описание</label>
               <input type="text" ref={refInput} onChange={h_Input2_onChange}></input>
-              <button className="create" onClick={h_BtnCreate_onClick}>Вернуться к списку</button>
+              <button className="create" onClick={h_BtnBack_onClick}>Вернуться к списку</button>
             </div>
           </div>
         </main>
@@ -112,9 +120,8 @@ export default function App() {
 
       <footer>(c) 2019 ОАО "Мегаполис"</footer>
 
-      <ModalCreateTask pages={pages} URL={URL} />
+      <ModalCreateTask pages={pages} URL={URL} task={task} />
       
-     </Context.Provider>
+    </Context.Provider>
   );
 }
-
